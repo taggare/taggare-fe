@@ -1,0 +1,32 @@
+{
+    "name": "nuxtjs-project",
+    "version": "1.0.0",
+    "description": "My superior Nuxt.js project",
+    "author": "preciouStar",
+    "private": true,
+    "config": {
+        "nuxt": {
+            "host": "localhost",
+            "port": "4000"
+        }
+    },
+    "scripts": {
+        "analyze": "nuxt build -a",
+        "dev": "nuxt --open",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "browserslist": "browserslist",
+        "generate": "nuxt generate",
+        "test": "jest"
+    },
+    "dependencies": {
+        "nuxt": "^2.0.0"
+    },
+    "devDependencies": {
+        "@nuxtjs/vuetify": "^1.0.0",
+        "@vue/test-utils": "^1.0.0-beta.27",
+        "babel-jest": "^24.1.0",
+        "jest": "^24.1.0",
+        "vue-jest": "^4.0.0-0"
+    }
+}
