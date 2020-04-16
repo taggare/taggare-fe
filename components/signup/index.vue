@@ -1,10 +1,30 @@
 <template>
   <v-app>
     <form>
-      <v-text-field v-model="name" cl></v-text-field>
-      <v-text-field v-model="email"></v-text-field>
-      <v-select v-model="select" :items="items"></v-select>
-      <v-checkbox v-model="checkbox"></v-checkbox>
+      <v-text-field
+        v-model="email"
+        :error-messages="emailErrors"
+        label="E-mail"
+        required
+      ></v-text-field>
+      <!-- <v-select
+        v-model="select"
+        :items="items"
+        :error-messages="selectErrors"
+        label="Item"
+        required
+        @change="$v.select.$touch()"
+        @blur="$v.select.$touch()"
+      ></v-select>
+      <v-checkbox
+        v-model="checkbox"
+        :error-messages="checkboxErrors"
+        label="Do you agree?"
+        required
+        @change="$v.checkbox.$touch()"
+        @blur="$v.checkbox.$touch()"
+      ></v-checkbox> -->
+
       <v-btn class="mr-4" @click="submit">submit</v-btn>
       <v-btn @click="clear">clear</v-btn>
     </form>
@@ -12,6 +32,7 @@
 </template>
 <script>
 import { getHi } from '~/assets/test';
+import axios from '~/plugins/axios/axios';
 export default {
   data() {
     return {
@@ -25,7 +46,26 @@ export default {
   created() {
     this.say = getHi();
   },
+  mounted() {
+    this.getUser();
+  },
   methods: {
+    emailErrors() {
+      const errors = [];
+      if (this.email === null || this.email.trim() === '') {
+        errors.push('이메일은 반드시 입력하셔야합니다.');
+        return;
+      }
+      return errors;
+    },
+    async getUser() {
+      try {
+        const { data } = await axios.get('/users/1');
+        console.log(data);
+      } catch (e) {
+        console.error(e.response);
+      }
+    },
     click() {
       alert('click');
     },

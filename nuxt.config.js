@@ -41,11 +41,15 @@ export default {
     /*
      ** Nuxt.js modules
      */
-    modules: [],
+    modules: ['@nuxtjs/axios'],
     /*
      ** vuetify module configuration
      ** https://github.com/nuxt-community/vuetify-module
      */
+    axios: {
+        // 모듈 설정
+        baseURL: process.env.BASE_URL || 'https://intense-hollows-88095.herokuapp.com'
+      },
     vuetify: {
         customVariables: ['~/assets/variables.scss'],
         theme: {
