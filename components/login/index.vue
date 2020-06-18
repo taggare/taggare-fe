@@ -1,57 +1,63 @@
 <template>
   <!-- <h1>{{ say }}</h1> -->
-  <div id="app">
-    <v-app id="inspire">
-      <v-card class="mx-auto" max-width="400">
-        <v-img
-          class="white--text align-end"
-          height="200px"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-        >
-          <v-card-title>Top 10 Australian beaches</v-card-title>
-        </v-img>
-
-        <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
-
-        <v-card-text class="text--primary">
-          <div>Whitehaven Beach</div>
-
-          <div>Whitsunday Island, Whitsunday Islands</div>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-btn color="orange" text @click="snackbar = true">Click</v-btn>
-
-          <v-btn color="orange" text>Explore</v-btn>
-        </v-card-actions>
-      </v-card>
-      <div class="text-center ma-2">
-        <v-btn dark @click="snackbar = true">Open Snackbar</v-btn>
-        <v-snackbar v-model="snackbar" :left="true">
-          {{ text }}
-          <v-btn color="pink" text @click="snackbar = false">Close</v-btn>
-        </v-snackbar>
-      </div>
-    </v-app>
+  <div align-content-center class="px-9 py-7">
+    <v-card tile flat>
+      <v-card-text class="pa-0">
+        <v-form>
+          <v-text-field v-model="id" label="ID" :append-icon="'mdi-account'" />
+          <v-text-field
+            v-model="password"
+            label="Password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
+            @click:append="showPassword = !showPassword"
+          />
+        </v-form>
+      </v-card-text>
+      <v-card-actions class="pa-0">
+        <v-checkbox v-model="keepLoggedIn" label="로그인상태 유지" />
+      </v-card-actions>
+      <v-card-actions class="pa-0">
+        <v-btn rounded color="primary" width="48%" height="50px" to="/signup">회원가입</v-btn>
+        <v-spacer />
+        <v-btn
+          rounded
+          color="primary"
+          width="48%"
+          height="50px"
+          @click="login({ id, password, keepLoggedIn })"
+        >로그인</v-btn>
+      </v-card-actions>
+      <v-card-text class="text-center">
+        계정정보를 잃어버리셨나요? &nbsp;
+        <v-btn color="primary" text to="/member/find">ID/PW찾기</v-btn>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 <script>
-import { getHi } from '~/assets/test';
+import { mapActions } from 'vuex';
+import axios from '~/plugins/axios/axios';
 export default {
+  name: 'LoginComponent',
   data() {
     return {
-      say: null,
-      snackbar: false,
-      text: "Hello, I'm a snackbar",
+      id: null,
+      password: null,
+      showPassword: false,
+      keepLoggedIn: false
     };
   },
-  created() {
-    this.say = getHi();
-  },
   methods: {
+    ...mapActions({
+      login: 'login/doLogin'
+    }),
     click() {
       alert('click');
-    },
+    }
   },
+  mounted() {
+    this.$dialog.notify.info('hi');
+  }
 };
 </script>

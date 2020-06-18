@@ -11,9 +11,11 @@
               hint="example@taggare.com"
               ref="email"
             ></v-text-field>
-            <p v-show="isEmailError" class="white red—text" transition="scale-transition">
-              {{ emailErrorMessage }}
-            </p>
+            <p
+              v-show="isEmailError"
+              class="white red—text"
+              transition="scale-transition"
+            >{{ emailErrorMessage }}</p>
           </v-col>
           <!-- 패스워드 start -->
           <v-col cols="6" sm="6">
@@ -27,9 +29,11 @@
               counter
               @click:append="showPassword = !showPassword"
             ></v-text-field>
-            <p v-show="isPasswordError" class="white red--text" transition="scale-transition">
-              {{ passwordErrorMessage }}
-            </p>
+            <p
+              v-show="isPasswordError"
+              class="white red--text"
+              transition="scale-transition"
+            >{{ passwordErrorMessage }}</p>
           </v-col>
           <v-col cols="6" sm="6">
             <v-text-field
@@ -42,24 +46,30 @@
               counter
               @click:append="showPassword = !showPassword"
             ></v-text-field>
-            <p v-show="isCheckPasswordError" class="white red--text" transition="scale-transition">
-              {{ checkPasswordErrorMessage }}
-            </p>
+            <p
+              v-show="isCheckPasswordError"
+              class="white red--text"
+              transition="scale-transition"
+            >{{ checkPasswordErrorMessage }}</p>
           </v-col>
           <!-- 패스워드 end -->
           <!-- lastName start -->
           <v-col cols="6" sm="6">
             <v-text-field v-model="lastName" label="Last Name" hint="park"></v-text-field>
-            <p v-show="isLastNameError" class="white red--text" transition="scale-transition">
-              {{ lastNameErrorMessage }}
-            </p>
+            <p
+              v-show="isLastNameError"
+              class="white red--text"
+              transition="scale-transition"
+            >{{ lastNameErrorMessage }}</p>
           </v-col>
           <!-- 이름 -->
           <v-col cols="6" sm="6">
             <v-text-field v-model="firstName" label="First Name" hint="alex"></v-text-field>
-            <p v-show="isFirstNameError" class="white red--text" transition="scale-transition">
-              {{ firstNameErrorMessage }}
-            </p>
+            <p
+              v-show="isFirstNameError"
+              class="white red--text"
+              transition="scale-transition"
+            >{{ firstNameErrorMessage }}</p>
           </v-col>
           <!-- 생년월일 -->
           <v-col cols="6" sm="6">
@@ -79,14 +89,13 @@
                   readonly
                   v-on="on"
                 ></v-text-field>
-                <p v-show="isBirthError" class="white red--text" transition="scale-transition">
-                  {{ birthErrorMessage }}
-                </p>
+                <p
+                  v-show="isBirthError"
+                  class="white red--text"
+                  transition="scale-transition"
+                >{{ birthErrorMessage }}</p>
               </template>
-              <v-date-picker
-                v-model="birth"
-                @input="clickedDatePickerState = false"
-              ></v-date-picker>
+              <v-date-picker v-model="birth" @input="clickedDatePickerState = false"></v-date-picker>
             </v-menu>
           </v-col>
           <!-- 성별 선택 -->
@@ -100,9 +109,11 @@
               :menu-props="{ top: true, offsetY: true }"
               label="Gender"
             ></v-select>
-            <p v-show="isGenderError" class="white red--text" transition="scale-transition">
-              {{ genderErrorMessage }}
-            </p>
+            <p
+              v-show="isGenderError"
+              class="white red--text"
+              transition="scale-transition"
+            >{{ genderErrorMessage }}</p>
           </v-col>
           <!-- tel start -->
           <v-col cols="6" sm="6">
@@ -113,9 +124,11 @@
               hint="'-'없이 입력하세요 (01012345678)"
               :append-icon="'mdi-cellphone-iphone'"
             ></v-text-field>
-            <p v-show="isTelError" class="white red--text" transition="scale-transition">
-              {{ telErrorMessage }}
-            </p>
+            <p
+              v-show="isTelError"
+              class="white red--text"
+              transition="scale-transition"
+            >{{ telErrorMessage }}</p>
           </v-col>
           <v-col cols="12" sm="12">
             <v-checkbox class="right-align" v-model="privacyAgree">
@@ -123,9 +136,11 @@
                 <div>개인정보 수집에 동의합니다.</div>
               </template>
             </v-checkbox>
-            <p v-show="isPrivacyError" class="white red—text" transition="scale-transition">
-              {{ privacyErrorMessage }}
-            </p>
+            <p
+              v-show="isPrivacyError"
+              class="white red—text"
+              transition="scale-transition"
+            >{{ privacyErrorMessage }}</p>
           </v-col>
           <v-btn class="mr-4" color="primary" @click="signUp()">회원가입</v-btn>
         </v-row>
@@ -161,7 +176,10 @@ export default {
       birthErrorMessage: null,
       clickedDatePickerState: false,
       gender: null,
-      genders: [{ text: '남자', data: 'MALE' }, { text: '여자', data: 'FEMALE' }],
+      genders: [
+        { text: '남자', data: 'MALE' },
+        { text: '여자', data: 'FEMALE' }
+      ],
       isGenderError: false,
       genderErrorMessage: null,
       tel: null,
@@ -191,15 +209,19 @@ export default {
             password: this.password,
             tel: this.tel
           };
+          console.log(user);
           const { data } = await axios.post('/users', user);
+          console.log('response:', data);
           if (data.status == 'OK') {
             alert(data.message);
             this.$router.push('/login');
           }
-          console.log(data);
         }
-      } catch (e) {
-        console.error(e.response);
+      } catch (error) {
+        console.error(error);
+        const errorResponse = error.response;
+        if (!errorResponse) return;
+        alert(errorResponse.message);
       }
     },
     validateAll() {
