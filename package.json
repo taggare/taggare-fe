@@ -11,6 +11,10 @@
         }
     },
     "scripts": {
+        "dcb:dev": "docker-compose -f docker-compose.dev.yml build",
+        "dcu:dev": "docker-compose -f docker-compose.dev.yml up -d",
+        "dcb:prod": "docker-compose -f docker-compose.prod.yml build",
+        "dcu:prod": "docker-compose -f docker-compose.prod.yml up -d",
         "analyze": "nuxt build -a",
         "dev": "nuxt --open",
         "build": "nuxt build",

@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  taggare-client:
+    container_name: taggare-prod-client
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '4000:4000'
+    command: bash -c 'yarn && yarn build && yarn start'
+  web:
+    image: nginx:latest
+    container_name: taggare-prod-nginx
+    restart: 'on-failure'
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf

@@ -16,4 +16,4 @@ ENV HOST 0.0.0.0
 EXPOSE 4000
 
 # start command
-CMD [ "yarn", "dev" ]
+# CMD [ "yarn", "dev" ]
